@@ -1,0 +1,135 @@
+diff --git a/Application.mk b/Application.mk
+index 55e77be..8c275dd 100644
+--- a/Application.mk
++++ b/Application.mk
+@@ -1,2 +1,3 @@
+ APP_PROJECT_PATH := $(call my-dir)
+ APP_MODULES      := OpenSURF
++APP_CPPFLAGS += -fexceptions
+diff --git a/jni/Android.mk b/jni/Android.mk
+index 86f65ca..c42d0cd 100644
+--- a/jni/Android.mk
++++ b/jni/Android.mk
+@@ -1,18 +1,22 @@
++APP_STL := stlport_shared
+ LOCAL_PATH := $(call my-dir)
+ 
+ 
+ include $(CLEAR_VARS)
+ 
++APP_CPPFLAGS += -fexceptions
++
+ LOCAL_MODULE := OpenSURF
+ 
+-LOCAL_LDLIBS += -L$(SYSROOT)/usr/lib -L$(NDK_APP_OUT)/OpenCV-Android/armeabi -lopencv -lcxcore -lcv -lcvaux -lcvml -lcvhighgui \
++LOCAL_LDLIBS += -L$(SYSROOT)/usr/lib -L/home/fer/code/notes/OpenCV-Android/obj/local/armeabi/ -lopencv -lcxcore -lcv -lcvaux -lcvml -lcvhighgui \
+ 				-llog  \
+ 
+ 
+ 
+-OPENCV := apps/OpenCV-Android
++OPENCV := ../OpenCV-Android/jni
+ 
+ LOCAL_C_INCLUDES += \
++	/home/fer/code/notes/android-ndk-r5b/sources/cxx-stl/stlport/stlport/ \
+         $(OPENCV)/cv/src \
+         $(OPENCV)/cv/include \
+         $(OPENCV)/cxcore/include \
+diff --git a/jni/surfjni_wrap.cpp b/jni/surfjni_wrap.cpp
+index f7caa2f..63db0b5 100644
+--- a/jni/surfjni_wrap.cpp
++++ b/jni/surfjni_wrap.cpp
+@@ -908,29 +908,21 @@ SWIGINTERN std::vector< Ipoint >::const_reference std_vector_Sl_Ipoint_Sg__get(s
+                 int size = int(self->size());
+                 if (i>=0 && i<size)
+                     return (*self)[i];
+-                else
+-                    throw std::out_of_range("vector index out of range");
+             }
+ SWIGINTERN void std_vector_Sl_Ipoint_Sg__set(std::vector< Ipoint > *self,int i,std::vector< Ipoint >::value_type const &val){
+                 int size = int(self->size());
+                 if (i>=0 && i<size)
+                     (*self)[i] = val;
+-                else
+-                    throw std::out_of_range("vector index out of range");
+             }
+ SWIGINTERN std::vector< std::pair< Ipoint,Ipoint > >::const_reference std_vector_Sl_IpPair_Sg__get(std::vector< IpPair > *self,int i){
+                 int size = int(self->size());
+                 if (i>=0 && i<size)
+                     return (*self)[i];
+-                else
+-                    throw std::out_of_range("vector index out of range");
+             }
+ SWIGINTERN void std_vector_Sl_IpPair_Sg__set(std::vector< IpPair > *self,int i,std::vector< std::pair< Ipoint,Ipoint > >::value_type const &val){
+                 int size = int(self->size());
+                 if (i>=0 && i<size)
+                     (*self)[i] = val;
+-                else
+-                    throw std::out_of_range("vector index out of range");
+             }
+ 
+ static CvPoint *new_cvpointArray(int nelements) { 
+@@ -1077,13 +1069,7 @@ SWIGEXPORT jlong JNICALL Java_com_theveganrobot_OpenASURF_swig_surfjnimoduleJNI_
+   (void)jarg1_;
+   arg1 = *(std::vector< Ipoint > **)&jarg1; 
+   arg2 = (int)jarg2; 
+-  try {
+     result = (std::vector< Ipoint >::value_type *) &std_vector_Sl_Ipoint_Sg__get(arg1,arg2);
+-  }
+-  catch(std::out_of_range &_e) {
+-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
+-    return 0;
+-  }
+   
+   *(std::vector< Ipoint >::value_type **)&jresult = result; 
+   return jresult;
+@@ -1106,13 +1092,7 @@ SWIGEXPORT void JNICALL Java_com_theveganrobot_OpenASURF_swig_surfjnimoduleJNI_I
+     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< Ipoint >::value_type const & reference is null");
+     return ;
+   } 
+-  try {
+     std_vector_Sl_Ipoint_Sg__set(arg1,arg2,(Ipoint const &)*arg3);
+-  }
+-  catch(std::out_of_range &_e) {
+-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
+-    return ;
+-  }
+   
+ }
+ 
+@@ -1251,13 +1231,7 @@ SWIGEXPORT jlong JNICALL Java_com_theveganrobot_OpenASURF_swig_surfjnimoduleJNI_
+   (void)jarg1_;
+   arg1 = *(std::vector< IpPair > **)&jarg1; 
+   arg2 = (int)jarg2; 
+-  try {
+     result = (std::vector< std::pair< Ipoint,Ipoint > >::value_type *) &std_vector_Sl_IpPair_Sg__get(arg1,arg2);
+-  }
+-  catch(std::out_of_range &_e) {
+-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
+-    return 0;
+-  }
+   
+   *(std::vector< std::pair< Ipoint,Ipoint > >::value_type **)&jresult = result; 
+   return jresult;
+@@ -1280,13 +1254,7 @@ SWIGEXPORT void JNICALL Java_com_theveganrobot_OpenASURF_swig_surfjnimoduleJNI_I
+     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< std::pair< Ipoint,Ipoint > >::value_type const & reference is null");
+     return ;
+   } 
+-  try {
+     std_vector_Sl_IpPair_Sg__set(arg1,arg2,(std::pair< Ipoint,Ipoint > const &)*arg3);
+-  }
+-  catch(std::out_of_range &_e) {
+-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
+-    return ;
+-  }
+   
+ }
+ 
+diff --git a/libs/armeabi/libOpenSURF.so b/libs/armeabi/libOpenSURF.so
+deleted file mode 100644
+index d9faec6..0000000
+Binary files a/libs/armeabi/libOpenSURF.so and /dev/null differ
+diff --git a/libs/armeabi/libopencv.so b/libs/armeabi/libopencv.so
+deleted file mode 100644
+index e847dfb..0000000
+Binary files a/libs/armeabi/libopencv.so and /dev/null differ

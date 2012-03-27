@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">BlindNotes</string>
+    <string name="please_wait">Please wait</string>
+    <string name="sorry">Sorry</string>
+    <string name="writing_descriptors">Writing SURF descriptors. Please wait, this just will be done for the first time.</string>
+    <string name="reading_descriptors">Reading SURF descriptors.</string>
+    <string name="calculating">Calculating SURF descriptors for captured image.</string>
+    <string name="checking">Checking matches.</string>
+    <string name="interrupted">You interrupted the SURF process!</string>
+</resources>
