@@ -4,10 +4,10 @@ BlindNotes its designed to help blind users to identify different notes using th
 
 ## First Version (a.k.a this is not even an alpha)
 
-At this time, this project it's just a proof of concept (a not documented one). There are two projects on the repository, one using the OpenSurf capabilities and another that will try to use OpenCV to create a more usable application.
+At this time, this project it's just a proof of concept (and a not documented one...). There are two projects on the repository, one using the OpenSurf capabilities and another that will try to use OpenCV to create a more usable application.
 It's based on OpenSurf, OpenASurf ( http://www.chrisevansdev.com/computer-vision-opensurf.html ) and the fantastic work of Fernando Herrera that allows to use a powerful image library as OpenSurf on our android devices. 
 
-The app was developed on the Html5VSAndroid Hackaton (23/03/2012 Madrid) by Toni Prada and Daniel Rojo. While the application works correctly, it's really slow. It's important to try another aproach to the problem, and here is where the second version appears:
+This app was developed on the Html5VSAndroid Hackaton (23/03/2012 Madrid) by Toni Prada and Daniel Rojo. While the application works correctly, it's really slow. It's important to try another aproach to the problem, and here is where the second version appears:
 
 ## Second Version 
 
